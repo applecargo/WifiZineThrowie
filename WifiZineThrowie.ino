@@ -1,41 +1,41 @@
-/* 
-  FSWebServer - Example WebServer with SPIFFS backend for esp8266
-  Copyright (c) 2015 Hristo Gochkov. All rights reserved.
-  This file is part of the ESP8266/ESP32 WebServer library for Arduino environment.
- 
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-  
-  upload the contents of the data folder with MkSPIFFS Tool ("ESP8266 Sketch Data Upload" in Tools menu in Arduino IDE)
-  or you can upload the contents of a folder if you CD in that folder and run the following command:
-  for file in `ls -A1`; do curl -F "file=@$PWD/$file" esp8266fs.local/edit; done
-  
-  access the sample web page at http://esp8266fs.local
-  edit the page by going to http://esp8266fs.local/edit
-*/
+/*
+   FSWebServer - Example WebServer with SPIFFS backend for esp8266
+   Copyright (c) 2015 Hristo Gochkov. All rights reserved.
+   This file is part of the ESP8266/ESP32 WebServer library for Arduino environment.
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Lesser General Public
+   License as published by the Free Software Foundation; either
+   version 2.1 of the License, or (at your option) any later version.
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Lesser General Public License for more details.
+   You should have received a copy of the GNU Lesser General Public
+   License along with this library; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+   upload the contents of the data folder with MkSPIFFS Tool ("ESP8266 Sketch Data Upload" in Tools menu in Arduino IDE)
+   or you can upload the contents of a folder if you CD in that folder and run the following command:
+   for file in `ls -A1`; do curl -F "file=@$PWD/$file" esp8266fs.local/edit; done
+
+   access the sample web page at http://esp8266fs.local
+   edit the page by going to http://esp8266fs.local/edit
+ */
 
 #define CAPTIVE_PORTAL
 const char *softAP_ssid = "오! 와이파이 ZINE?";
 const char *myHostname = "esp32";
 
 /*
-  Captive portal mode does not connect to the Internet.
-  If you want to get access to the Internet, comment above #define CAPTIVE_PORTAL and fill out following ssid/passwd.
-  Having internet might help when you do utilize 'edit' page, since that page uses CDNs a lot.
-  But, in my expriences, it was working fine somehow even without the Internet!
+   Captive portal mode does not connect to the Internet.
+   If you want to get access to the Internet, comment above #define CAPTIVE_PORTAL and fill out following ssid/passwd.
+   Having internet might help when you do utilize 'edit' page, since that page uses CDNs a lot.
+   But, in my expriences, it was working fine somehow even without the Internet!
 
-  Edit page is available at "http://192.168.4.1/edit"
-  After editing, save your edit by pressing Ctrl(Cmd)-S !!
-*/
+   Edit page is available at "http://192.168.4.1/edit"
+   After editing, save your edit by pressing Ctrl(Cmd)-S !!
+ */
 
 const char* ssid = "nosignal";
 const char* password = "1111100000";
@@ -63,11 +63,11 @@ File fsUploadFile;
 
 //format bytes
 String formatBytes(size_t bytes){
-  if (bytes < 1024){
+  if (bytes < 1024) {
     return String(bytes)+"B";
-  } else if(bytes < (1024 * 1024)){
+  } else if(bytes < (1024 * 1024)) {
     return String(bytes/1024.0)+"KB";
-  } else if(bytes < (1024 * 1024 * 1024)){
+  } else if(bytes < (1024 * 1024 * 1024)) {
     return String(bytes/1024.0/1024.0)+"MB";
   } else {
     return String(bytes/1024.0/1024.0/1024.0)+"GB";
@@ -110,7 +110,8 @@ String toStringIp(IPAddress ip) {
   return res;
 }
 
-// Redirect to captive portal if we got a request for another domain. Return true in that case so the page handler do not try to handle the request again.
+// Redirect to captive portal if we got a request for another domain.
+// Return true in that case so the page handler do not try to handle the request again.
 boolean captivePortal() {
   //DBG_OUTPUT_PORT.println(server.hostHeader());
   if (!isIp(server.hostHeader()) && server.hostHeader() != (String(myHostname)+".local")) {
@@ -131,7 +132,7 @@ bool handleFileRead(String path){
   if(path.endsWith("/")) path += "index.htm";
   String contentType = getContentType(path);
   String pathWithGz = path + ".gz";
-  if(SPIFFS.exists(pathWithGz) || SPIFFS.exists(path)){
+  if(SPIFFS.exists(pathWithGz) || SPIFFS.exists(path)) {
     if(SPIFFS.exists(pathWithGz))
       path += ".gz";
     File file = SPIFFS.open(path, "r");
@@ -148,17 +149,17 @@ void handleFileUpload(){
   }
   if(server.uri() != "/edit") return;
   HTTPUpload& upload = server.upload();
-  if(upload.status == UPLOAD_FILE_START){
+  if(upload.status == UPLOAD_FILE_START) {
     String filename = upload.filename;
     if(!filename.startsWith("/")) filename = "/"+filename;
     DBG_OUTPUT_PORT.print("handleFileUpload Name: "); DBG_OUTPUT_PORT.println(filename);
     fsUploadFile = SPIFFS.open(filename, "w");
     filename = String();
-  } else if(upload.status == UPLOAD_FILE_WRITE){
+  } else if(upload.status == UPLOAD_FILE_WRITE) {
     //DBG_OUTPUT_PORT.print("handleFileUpload Data: "); DBG_OUTPUT_PORT.println(upload.currentSize);
     if(fsUploadFile)
       fsUploadFile.write(upload.buf, upload.currentSize);
-  } else if(upload.status == UPLOAD_FILE_END){
+  } else if(upload.status == UPLOAD_FILE_END) {
     if(fsUploadFile)
       fsUploadFile.close();
     DBG_OUTPUT_PORT.print("handleFileUpload Size: "); DBG_OUTPUT_PORT.println(upload.totalSize);
@@ -221,7 +222,7 @@ void handleFileList() {
   }
   File dir = SPIFFS.open((char *)path.c_str());
   path = String();
-  if(!dir.isDirectory()){
+  if(!dir.isDirectory()) {
     dir.close();
     returnFail("NOT DIR");
     return;
@@ -232,7 +233,7 @@ void handleFileList() {
   for (int cnt = 0; true; ++cnt) {
     File entry = dir.openNextFile();
     if (!entry)
-    break;
+      break;
 
     if (cnt > 0)
       output += ',';
@@ -286,7 +287,7 @@ void setup(void){
   DBG_OUTPUT_PORT.begin(115200);
   DBG_OUTPUT_PORT.print("\n");
   DBG_OUTPUT_PORT.setDebugOutput(true);
-  
+
 #ifdef CAPTIVE_PORTAL
   //WIFI INIT
   //ESP32 -> Captive Portal
@@ -297,7 +298,7 @@ void setup(void){
   DBG_OUTPUT_PORT.print("AP IP address: ");
   DBG_OUTPUT_PORT.println(WiFi.softAPIP());
 
-  /* Setup the DNS server redirecting all the domains to the apIP */  
+  /* Setup the DNS server redirecting all the domains to the apIP */
   dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
   dnsServer.start(DNS_PORT, "*", apIP);
 #else
@@ -306,7 +307,7 @@ void setup(void){
   if (String(WiFi.SSID()) != String(ssid)) {
     WiFi.begin(ssid, password);
   }
-  
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     DBG_OUTPUT_PORT.print(".");
@@ -327,7 +328,7 @@ void setup(void){
     listDir(SPIFFS, "/", 0);
     DBG_OUTPUT_PORT.printf("\n");
   }
-  
+
   //SERVER INIT
   //list directory
   server.on("/list", HTTP_GET, handleFileList);
@@ -341,7 +342,9 @@ void setup(void){
   server.on("/edit", HTTP_DELETE, handleFileDelete);
   //first callback is called after the request has ended with all parsed arguments
   //second callback handles file uploads at that location
-  server.on("/edit", HTTP_POST, [](){ server.send(200, "text/plain", ""); }, handleFileUpload);
+  server.on("/edit", HTTP_POST, [](){
+    server.send(200, "text/plain", "");
+  }, handleFileUpload);
   // server.on("/generate_204", handleFileRead("/"));  //Android captive portal. Maybe not needed. Might be handled by notFound handler.
   // server.on("/fwlink", handleFileRead(String("/")));  //Microsoft captive portal. Maybe not needed. Might be handled by notFound handler.
 
@@ -366,7 +369,7 @@ void setup(void){
   server.begin();
   DBG_OUTPUT_PORT.println("HTTP server started");
 }
- 
+
 void loop(void){
   dnsServer.processNextRequest();
   server.handleClient();
