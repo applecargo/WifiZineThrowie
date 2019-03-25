@@ -1,2 +1,5 @@
+---
+layout: default
+---
 Hello.
 HHH
