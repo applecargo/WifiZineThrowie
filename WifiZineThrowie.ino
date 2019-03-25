@@ -146,7 +146,7 @@ void setup(){
 
   //start ap
   WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-  WiFi.softAP(hostName, NULL, 10); //channel selection : 10 (choose one among 6-13 for world-wide accessibility)
+  WiFi.softAP(hostName, NULL, 6); //channel selection : 6 (choose one among 6-13 for world-wide accessibility)
 
   //my ip
   delay(500);
