@@ -14,7 +14,7 @@ layout: default
 - A standalone networking device which can be used to communicate with others
 - A network that ‘you’ have the complete (relatively) control over it (than.. For example, the Internet)
 - A ‘walking’ network or a signal that you can carry/accompany with your physical presence
-- http://pilote.byus.net/wpdiana/?page_id=1064
+- [more info](http://pilote.byus.net/wpdiana/?page_id=1064)
 - Consist of… : ESP32 module + powering device + your content + your ‘context’
 
 ### How to make one?
