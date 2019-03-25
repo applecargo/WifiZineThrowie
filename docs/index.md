@@ -2,122 +2,106 @@
 layout: default
 ---
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
+# H&D Walking signal / WIFI hotspot zine workshop.
 
-[Link to another page](./another-page.html).
+## Technical guides.
 
-There should be whitespace between paragraphs.
+### What is a hot-spot zine?
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+- A standalone WIFI signal broadcaster
+- A standalone captive portal webserver which serves a webpage instead of regular login page
+- This webpage plus this electronic device itself is a zine platform
+- A standalone networking device which can be used to communicate with others
+- A network that ‘you’ have the complete (relatively) control over it (than.. For example, the Internet)
+- A ‘walking’ network or a signal that you can carry/accompany with your physical presence
+- http://pilote.byus.net/wpdiana/?page_id=1064
+- Consist of… : ESP32 module + powering device + your content + your ‘context’
 
-# Header 1
+### How to make one?
 
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
+#### What is needed.
 
-## Header 2
+- A computer
+- A ESP32 breakout board
+- microUSB cable (so called, android data cable)
+- A battery or powerbank
+- A webpage (html/css/js + media files)
+- (optional) Magnets : you attach or install the module at some specific place / location, to give more context/happening
+- (optional) A case / a hull : you shape/materialize it to give it more context/happening.
+- (optional) Sensory peripherals or actuators (incl. speakers etc) : to give it more context/happening.
+- (optional) A concept / a idea
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+#### Limitations
 
-### Header 3
+- Storage 2MB (or less)
+- A bit slower than normal web servers
+- Maybe a bit unstable from time to time : you can re-start the module whenever needed.
 
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
+#### How to upload your code to the device
 
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
+- Installing USB driver which enables us to communicate to the chip (i.e. the module: ESP32)
+  - For Windows users
+    - Windows 7
+    - Windows 8
+    - Windows 10
+  - For Mac OSX users
+    - Yosemite (10.10)
+    - El capitan (10.11)
+    - Sierra (10.12)
+    - High Sierra (10.13)
+    - Mojave (10.14)
+  - For Linux
+    - Debian derived
+    - Archlinux derived
 
-#### Header 4
+  - Testing USB communication
+    - Enabling verbose/detailed output of the procedure that arduino takes for compilation and uploading steps
+    - Try compile & upload and see if it works with the simplest example: Blink example
+    - How to listen to the device with Serial comm. Example
 
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
+  - Preparing hotspot-zine code and installing additional components that is needed by the code (libraries)
+    - How to use arduino’s Library Manager to install a new library
+    - What we need to install
+      - ESP32AsyncWebServer
+      - AsyncTCP
+      - …
+    - Where is the code?
+      - USB drive
+      - Or github, using git.
+  - Choose your SSID and modify the default one
+  - Try compile & upload and see what happens.
 
-##### Header 5
+#### Uploading the zine content
 
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
+- Installing additional tools for extending arduino functionality to support ESP data uploading (for the website data)
+- Let’s try again the most simplest one: ‘Hello, world!’ example page
 
-###### Header 6
+#### Working with your zine contents
 
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
+- Template #1 : Text-oriented single page: ‘Hello, world!’
+- Template #2 : Image-oriented single page: ‘Imaginary, world.’
+- Template #3 : Sound-oriented single page: ‘Sound world!’
+- Template #4 : Multiple-pages: ‘Looooong story!’
+- Template #5 : Paper.js
+- Template #6 : P5.js
+- Template #7 : http://molleindustria.github.io/p5.play/
+- Template #8 : Tone.js
+- Template #9 (advanced) : WebSocket - socket.io + server-side programming @ arduino
 
-### There's a horizontal rule below this.
+#### Working with the shape and materialization
 
-* * *
+- Adding sensors : example (buttons)
+- Adding actuators : example (motor)
 
-### Here is an unordered list:
+#### Working with the location
 
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
+- Magnets and installing at public space
 
-### And an ordered list:
+### Contribution to the project
 
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
+- Sharing your zine content & construction + your concept/context
+- Approvements on the wifi-zine code: send PR @ github
+  - And plz be patient, i have never used PR system.. Need to learn :)
+- Or simply e-mail your idea and stuff : pilotedeguerre@gmail.com
 
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://assets-cdn.github.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
+### Thank you!
