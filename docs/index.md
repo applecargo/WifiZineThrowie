@@ -84,7 +84,7 @@ layout: default
 - Template #4 : Multiple-pages: ‘Looooong story!’
 - Template #5 : Paper.js
 - Template #6 : P5.js
-- Template #7 : http://molleindustria.github.io/p5.play/
+- Template #7 : <http://molleindustria.github.io/p5.play/>
 - Template #8 : Tone.js
 - Template #9 (advanced) : WebSocket - socket.io + server-side programming @ arduino
 
