@@ -102,6 +102,6 @@ layout: default
 - Sharing your zine content & construction + your concept/context
 - Approvements on the wifi-zine code: send PR @ github
   - And plz be patient, i have never used PR system.. Need to learn :)
-- Or simply e-mail your idea and stuff : pilotedeguerre@gmail.com
+- Or simply e-mail your idea and stuff : <mailto:pilotedeguerre@gmail.com>
 
 ### Thank you!
