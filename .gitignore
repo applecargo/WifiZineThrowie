@@ -32,3 +32,8 @@
 *.app
 
 .DS_Store
+
+# jekyll
+docs/.sass-cache
+docs/_site
+docs/Gemfile.lock

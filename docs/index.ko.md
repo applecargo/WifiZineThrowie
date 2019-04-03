@@ -2,22 +2,27 @@
 layout: default
 ---
 
-[한글](./index.ko.html)
+# 해커스 앤 디자이너스 - 걸어다니는 신호들 / 와이파이-진 워크숍.
 
-# H&D Walking signal / WIFI hotspot zine workshop.
+## 와이파이-진(zine) 이란?
 
-## Technical guides.
+- 스마트폰이 핫스팟 로그인을 시도할때, 웹진 형식의 자주독립출판물을 서비스하도록 설계된 무선통신 및 웹서비스 장치
 
-### What is a hot-spot zine?
+[![hotspot-zine-ssid](./assets/hotspot-zine-ssid.jpg){:width="500px"}](./assets/hotspot-zine-ssid.jpg)
+[![hotspot-zine-login](./assets/hotspot-zine-login.jpg){:width="500px"}](./assets/hotspot-zine-login.jpg)
 
-- A standalone WIFI signal broadcaster
-- A standalone captive portal webserver which serves a webpage instead of regular login page
-- This webpage plus this electronic device itself is a zine platform
-- A standalone networking device which can be used to communicate with others
-- A network that ‘you’ have the complete (relatively) control over it (than.. for instance, the Internet)
-- A ‘walking’ network or a signal that you can carry/accompany with your physical presence
+- 구성품
+  - Espressif사의 ESP32 모듈
+  - (유)무선 전원장치
+  - () 자석
+  - (optional) A case / a hull : you shape/materialize it to give it more context/happening.
+
+  - 도메인 네임서버(captive portal)
+  - 웹페이지 (웹-진)
+
 - [more info](http://pilote.byus.net/wpdiana/?page_id=1064)
-- Consist of… : ESP32 module + powering device + your content + your ‘context’
+
+## 작업 가이드
 
 ### How to make one?
 
@@ -28,8 +33,6 @@ layout: default
 - microUSB cable (so called, android data cable)
 - A battery or powerbank
 - A webpage (html/css/js + media files)
-- (optional) Magnets : you attach or install the module at some specific place / location, to give more context/happening
-- (optional) A case / a hull : you shape/materialize it to give it more context/happening.
 - (optional) Sensory peripherals or actuators (incl. speakers etc) : to give it more context/happening.
 - (optional) A concept / a idea
 
@@ -107,3 +110,17 @@ layout: default
 - Or simply e-mail your idea and stuff : <mailto:pilotedeguerre@gmail.com>
 
 ### Thank you!
+
+
+
+### backup text
+
+- 등장 배경 및 기술 환경
+  - 와이파이 무선통신 기기의 등장
+  - 해당 기기의 웹서비스 기능 안정화
+  - 모바일 기기의 웹브라우져 탑재 및 핫스팟 로그인 프로토콜 적용 보편화
+- 의미 및 관심
+  - 인터넷(The Internet)은 인터넷 서비스 공급자(ISP)들에 의존적인 '자본화된 네트워크'이다. 지역화/개인화된 전파 네트워크
+  - 방송의 송신자와 수신자가 물리적으로 상호교감이 가능한 거리에 존재함으로서 유발되는 감정적/심정적/대화적 연대 가능성 탐구
+
+  - 웹진 송출의 상황적 맥락(형태 및 설치 장소 등)
