@@ -287,7 +287,7 @@ layout: default
 
 - 보드에 업로드 한다
 
-  - 업로드 버튼(빨간 화살표)을 클릭하고, 'Connecting...' 이란 문구가 나타났을때, [ESP 보드의 'BOOT'라는 버튼을 1초간 눌렀다가 뗀다](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/).
+  - 업로드 버튼(빨간 화살표)을 클릭하고, 'Connecting...' 이란 문구가 나타났을때, [ESP 보드의 'BOOT'라는 버튼을 1초간 눌렀다가 뗍니다](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/).
 
     [![arduino-wifizine-upload](./assets/arduino-wifizine-upload.png){:width="300px"}](./assets/arduino-wifizine-upload.png)
 
@@ -331,24 +331,95 @@ layout: default
 
 - 작업 과정
 
-  
+  - [파티션 설정 파일](https://raw.githubusercontent.com/applecargo/WifiZineThrowie/master/partition/wifi_zine.csv) 다운로드 및 설치
 
-#### Uploading the zine content
+    ~/Library/Arduino15/packages/esp32/hardware/esp32/1.0.1/tools/partitions 에 붙여넣는다
 
-- Installing additional tools for extending arduino functionality to support ESP data uploading (for the website data)
-- Let’s try again the most simplest one: ‘Hello, world!’ example page
+    [![arduino-partition-00001](./assets/arduino-partition-00001.png){:width="300px"}](./assets/arduino-partition-00001.png)
 
-#### Working with your zine contents
+    ~/Library/ 폴더는 Finder에서 숨겨진 폴더이므로 Cmd-Shift-G를 누르고 Library 라고 타이핑하여 들어간다
 
-- Template #1 : Text-oriented single page: ‘Hello, world!’
-- Template #2 : Image-oriented single page: ‘Imaginary, world.’
-- Template #3 : Sound-oriented single page: ‘Sound world!’
-- Template #4 : Multiple-pages: ‘Looooong story!’
-- Template #5 : Paper.js
-- Template #6 : P5.js
-- Template #7 : <http://molleindustria.github.io/p5.play/>
-- Template #8 : Tone.js
-- Template #9 (advanced) : WebSocket - socket.io + server-side programming @ arduino
+    [![arduino-partition-00002](./assets/arduino-partition-00002.png){:width="300px"}](./assets/arduino-partition-00002.png)
+
+    이후, Arduino15 폴더는 일반적인 폴더와 같이 더블 클릭하여 들어간다
+
+    [![arduino-partition-00003](./assets/arduino-partition-00003.png){:width="300px"}](./assets/arduino-partition-00003.png)
+
+    위와 같은 위치로 이동한다
+
+    [![arduino-partition-00004](./assets/arduino-partition-00004.png){:width="300px"}](./assets/arduino-partition-00004.png)
+
+    위와 같은 상태로 만든다
+
+  - boards.txt 파일 수정
+
+    [![arduino-partition-00005](./assets/arduino-partition-00005.png){:width="300px"}](./assets/arduino-partition-00005.png)
+
+    위와 같은 위치에 존재하는 파일 boards.txt 파일을 열어 다음에 +로 표시된 4줄을 추가한다 (+표시는 제거한다!)
+
+    ```diff
+    --- /Users/doohoyi/Downloads/Telegram Desktop/boards.txt
+    +++ /Users/doohoyi/Library/Arduino15/packages/esp32/hardware/esp32/1.0.1/boards.txt
+    @@ -52,6 +52,10 @@
+     esp32.menu.PartitionScheme.min_spiffs.upload.maximum_size=1966080
+     esp32.menu.PartitionScheme.fatflash=16M Fat
+     esp32.menu.PartitionScheme.fatflash.build.partitions=ffat
+    +esp32.menu.PartitionScheme.wifi_zine=WIFI ZINE
+    +esp32.menu.PartitionScheme.wifi_zine.build.partitions=wifi_zine
+    +esp32.menu.PartitionScheme.wifi_zine.upload.maximum_size=1048576
+    +esp32.menu.PartitionScheme.wifi_zine.upload.maximum_data_size=2752512
+
+     esp32.menu.CPUFreq.240=240MHz (WiFi/BT)
+     esp32.menu.CPUFreq.240.build.f_cpu=240000000L
+    ```
+
+  - Arduino IDE 를 재시작한 후, ESP32 DEV Module 설정 중 PartitionScheme을 WIFI ZINE으로 선택하고, 컴파일해본다.
+
+### 와이파이-진 컨텐츠 업로드/출판 하기
+
+- 와이파이-진 컨텐츠는 작동하는 코드와는 별도로 저장된다. 따라서, 일반적인 Arduino IDE의 코드 업로드 과정과는 별도의 과정을 거친다. 이를 위해, 별도의 확장 플러그인을 설치해야 합니다.
+
+- [ESP32FS 플러그인](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases) 다운로드 및 설치
+
+  ~/Documents/Arduino/tools 라는 폴더 생성
+
+  [![arduino-esp32fs-00002](./assets/arduino-esp32fs-00002.png){:width="300px"}](./assets/arduino-esp32fs-00002.png)
+
+  압축이 풀린 ESP32FS 를 이곳에 복사 설치
+
+  [![arduino-esp32fs-00003](./assets/arduino-esp32fs-00003.png){:width="300px"}](./assets/arduino-esp32fs-00003.png)
+
+  폴더의 구성에 조심해야 합니다. 다음 그림과 같이 설치되어야 합니다. (폴더의 이름이 ESP32FS 인 것도 주의!)
+
+  [![arduino-esp32fs-00004](./assets/arduino-esp32fs-00004.png){:width="300px"}](./assets/arduino-esp32fs-00004.png)
+
+  Arduino IDE를 재시작한 후, 플러그인 설치가 성공했는지 확인합니다. 성공했다면, 'ESP32 Sketch Data Upload' 라는 메뉴가 추가된 것을 확인할 수 있습니다.
+
+  [![arduino-esp32fs-00005](./assets/arduino-esp32fs-00005.png){:width="300px"}](./assets/arduino-esp32fs-00005.png)
+
+  이 메뉴를 실행하면, ~/Documents/Arduino/WifiZineThrowie/data 폴더에 들어있는 모든 파일을 ESP32 모듈의 웹 페이지 저장소에 이동시키게 됩니다.
+
+  [![arduino-wifizine-webpage-upload](./assets/arduino-wifizine-webpage-upload.png){:width="300px"}](./assets/arduino-wifizine-webpage-upload.png)
+
+  업로드를 실행하십시오. 업로드 중 출력되는 메세지의 색깔이 빨간색이 아니라 흰색으로 출력됩니다. 코드를 업로드 할 때와 마찬가지로, 'Connecting...' 이란 문구가 나타났을때, [ESP 보드의 'BOOT'라는 버튼을 1초간 눌렀다가 땝니다](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/).
+
+  업로드가 성공적으로 완료된 경우의 화면
+
+  [![arduino-wifizine-webpage-upload-done](./assets/arduino-wifizine-webpage-upload-done.png){:width="300px"}](./assets/arduino-wifizine-webpage-upload-done.png)
+
+  축하합니다. 와아파이-진을 제작/출판하기 위한 모든 준비가 끝났습니다.
+
+## 와이파이-진 컨텐츠 예시
+
+- 예시 1 : Text-oriented single page: ‘Hello, world!’
+- 예시 2 : Image-oriented single page: ‘Imaginary, world.’
+- 예시 3 : Sound-oriented single page: ‘Sound world!’
+- 예시 4 : Multiple-pages: ‘Looooong story!’
+- 예시 5 : Paper.js
+- 예시 6 : P5.js
+- 예시 7 : <http://molleindustria.github.io/p5.play/>
+- 예시 8 : Tone.js
+- 예시 9 (advanced) : WebSocket - socket.io + server-side programming @ arduino
 
 #### Working with the shape and materialization
 
