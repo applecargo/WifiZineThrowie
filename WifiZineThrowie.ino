@@ -199,7 +199,7 @@ void setup(){
   });
 
   //serve-root
-  server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.htm");
+  server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
   //404 handler
   server.onNotFound([](AsyncWebServerRequest *request){
