@@ -6,58 +6,124 @@ layout: default
 
 ## 와이파이-진(zine) 이란?
 
+### 한 줄 설명
+
 - 스마트폰이 핫스팟 로그인을 시도할때, 웹진 형식의 자주독립출판물을 서비스하도록 설계된 무선통신 및 웹서비스 장치
 
 [![hotspot-zine-ssid](./assets/hotspot-zine-ssid.jpg){:width="500px"}](./assets/hotspot-zine-ssid.jpg)
 [![hotspot-zine-login](./assets/hotspot-zine-login.jpg){:width="500px"}](./assets/hotspot-zine-login.jpg)
 
-- 구성품
-  - Espressif사의 ESP32 모듈
-  - (유)무선 전원장치
-  - () 자석
-  - (optional) A case / a hull : you shape/materialize it to give it more context/happening.
+- [더보기](http://pilote.byus.net/wpdiana/?page_id=1064)
 
-  - 도메인 네임서버(captive portal)
+### 선행 프로젝트
+
+- [CaptiveIntraweb by AReResearch (Andy Reischle) @ 2015](https://github.com/reischle/CaptiveIntraweb)
+
+  [![construction-overview](./assets/areresearch/img4.png){:width="500px"}](./assets/areresearch/img4.png)
+
+### 구성요소
+
+- 유형 요소 (tangible components)
+  - Espressif사의 ESP32 모듈
+  - 전원장치 (배터리 또는 DC 아답타)
+  - (선택적) 통 또는 외형
+  - (선택적) 자석
+
+  [![construction-overview](./assets/areresearch/img1.png){:width="500px"}](./assets/areresearch/img1.png)
+
+  [![construction-overview](./assets/areresearch/img2.png){:width="500px"}](./assets/areresearch/img2.png)
+
+  [![construction-overview](./assets/areresearch/img5.png){:width="500px"}](./assets/areresearch/img5.png)
+
+  [![construction-overview](./assets/areresearch/img6.png){:width="500px"}](./assets/areresearch/img6.png)
+
+  [![construction-overview](./assets/areresearch/img7.png){:width="500px"}](./assets/areresearch/img7.png)
+
+  (위 이미지들은 Andy Reischle (AReResearch) 님이 게시한 것들입니다.)
+
+- 무형 요소 (intangible components)
+  - [ESP-IDF 개발 환경](https://github.com/espressif/esp-idf/tree/master/components)
+  - [ESP32 아두이노 호환성 패키지](https://github.com/espressif/arduino-esp32)
+  - [SPIFFS 파일 시스템](https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS)
+  - [ESP 웹서버 라이브러리](https://github.com/me-no-dev/ESPAsyncWebServer)
+  - [도메인 네임서버(captive portal)](https://github.com/espressif/arduino-esp32/tree/master/libraries/DNSServer)
   - 웹페이지 (웹-진)
 
-- [more info](http://pilote.byus.net/wpdiana/?page_id=1064)
+  [![Wi-Fi-zine-stacks](./assets/Wi-Fi-zine-stacks.png){:width="500px"}](./assets/Wi-Fi-zine-stacks.png)
 
-## 작업 가이드
+  - [더 많은 정보](http://esp32.net/)
+  - [Wi-Fi 스택이 오픈소스가 아닌 문제](https://github.com/espressif/esp32-wifi-lib/issues/2)
 
-### How to make one?
+### 알아두어야 할 와이파이-진 시스템의 한계
 
-#### What is needed.
+  - 저장용량 2MB 이하
+  - 일반적인 웹서버에 비해 다소 느린 속도
+  - 일반적인 웹서버에 비해 다소 불안정한 작동 (때때로, 시스템 재시작이 필요할 수 있음)
 
-- A computer
-- A ESP32 breakout board
-- microUSB cable (so called, android data cable)
-- A battery or powerbank
-- A webpage (html/css/js + media files)
-- (optional) Sensory peripherals or actuators (incl. speakers etc) : to give it more context/happening.
-- (optional) A concept / a idea
+## 와이파이-진 만들기
 
-#### Limitations
+### 재료 및 준비물
 
-- Storage 2MB (or less)
-- A bit slower than normal web servers
-- Maybe a bit unstable from time to time : you can re-start the module whenever needed.
+- 컴퓨터
+- ESP32 모듈이 탑재된 개발보드
+- 통신용 마이크로 USB 케이블 (안드로이드 데이타 케이블)
+- 배터리, 배터리팩 또는 DC 아답타
+- 웹페이지 (html/css/js + 미디어 파일)
+- (선택적으로) 센서 또는 작동장치 (스피커 등)
 
-#### How to upload your code to the device
+### 와이파이-진 보드 준비하기
 
-- Installing USB driver which enables us to communicate to the chip (i.e. the module: ESP32)
-  - For Windows users
-    - Windows 7
-    - Windows 8
-    - Windows 10
-  - For Mac OSX users
-    - Yosemite (10.10)
-    - El capitan (10.11)
-    - Sierra (10.12)
-    - High Sierra (10.13)
-    - Mojave (10.14)
-  - For Linux
-    - Debian derived
-    - Archlinux derived
+- ESP32 모듈과 통신하기 위한 USB 장치 드라이버 설치하기 (칩 이름 : SiliconLabs CP2012)
+
+  - [USB 통신 칩 드라이버 다운로드](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers)
+
+    - [Windows 10](https://www.silabs.com/documents/public/software/CP210x_Universal_Windows_Driver.zip)
+    - [Windows 7/8/8.1](https://www.silabs.com/documents/public/software/CP210x_Windows_Drivers.zip)
+
+      - [설치 과정](https://www.pololu.com/docs/0J7/all)
+
+    - [Mac OSX](https://www.silabs.com/documents/public/software/Mac_OSX_VCP_Driver.zip)
+
+      - [GateKeeper와의 전쟁](https://support.apple.com/en-us/HT202491)
+
+      - Yosemite (10.10.x)
+
+        - [Legacy 드라이버를 설치해야 함](https://www.silabs.com/community/interface/forum.topic.html/latest_vcp_driverfo-96RK)
+
+        [![yosemite-cp2102](./assets/yosemite-cp2102.png){:width="300px"}](./assets/yosemite-cp2102.png)
+        [![yosemite-cp2102-legacy](./assets/yosemite-cp2102-legacy.png){:width="300px"}](./assets/yosemite-cp2102-legacy.png)
+
+      - El capitan (10.11.x)
+
+        - [GateKeeper 비활성화 방법](https://medium.com/@krukmat/macos-el-capitan-enabling-usb-for-cp2102-usb-to-ttl-3b63449e02e9)
+        - [csrutil enable --without kext](https://forums.developer.apple.com/thread/17452)
+
+      - Sierra (10.12.x)
+
+        - [GateKeeper 비활성화 방법](https://www.tekrevue.com/tip/gatekeeper-macos-sierra/)
+        - sudo spctl --master-disable
+
+      - High Sierra (10.13.x)
+
+        - [GateKeeper 비활성화 방법](https://stackoverflow.com/questions/47109036/cp2102-device-is-not-listed-in-dev-on-macos-10-13)
+        - [GateKeeper 비활성화 방법](https://pikeralpha.wordpress.com/2017/08/29/user-approved-kernel-extension-loading/)
+        - [GateKeeper 비활성화 방법](https://www.silabs.com/community/interface/knowledge-base.entry.html/2018/03/30/usb_to_uart_bridgev-Dnef)
+        - spctl kext-consent disable
+
+      - Mojave (10.14.x)
+
+        - [GateKeeper 비활성화 방법](http://osxdaily.com/2016/09/27/allow-apps-from-anywhere-macos-gatekeeper/)
+        - sudo spctl --master-disable
+
+    - Linux 3.x.x & 4.x.x
+
+      - 드라이버 설치 불필요 (커널에 포함되어 있음)
+      - [udev rules 업데이트 필요](https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules)
+      - [99-platformio-udev.rules](https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rules)
+
+    - [Linux 2.6.x](https://www.silabs.com/documents/login/software/Linux_2.6.x_VCP_Driver_Source.zip)
+
+      - 정보 없음
 
   - Testing USB communication
     - Enabling verbose/detailed output of the procedure that arduino takes for compilation and uploading steps
@@ -75,6 +141,10 @@ layout: default
       - Or github, using git.
   - Choose your SSID and modify the default one
   - Try compile & upload and see what happens.
+
+  - [통신 문제?](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/)
+
+  - [문제 발생?](https://randomnerdtutorials.com/esp32-troubleshooting-guide/)
 
 #### Uploading the zine content
 
@@ -110,17 +180,3 @@ layout: default
 - Or simply e-mail your idea and stuff : <mailto:pilotedeguerre@gmail.com>
 
 ### Thank you!
-
-
-
-### backup text
-
-- 등장 배경 및 기술 환경
-  - 와이파이 무선통신 기기의 등장
-  - 해당 기기의 웹서비스 기능 안정화
-  - 모바일 기기의 웹브라우져 탑재 및 핫스팟 로그인 프로토콜 적용 보편화
-- 의미 및 관심
-  - 인터넷(The Internet)은 인터넷 서비스 공급자(ISP)들에 의존적인 '자본화된 네트워크'이다. 지역화/개인화된 전파 네트워크
-  - 방송의 송신자와 수신자가 물리적으로 상호교감이 가능한 거리에 존재함으로서 유발되는 감정적/심정적/대화적 연대 가능성 탐구
-
-  - 웹진 송출의 상황적 맥락(형태 및 설치 장소 등)
