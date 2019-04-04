@@ -101,7 +101,7 @@ layout: default
 
 - [Arduino IDE에 esp32 보드를 추가하기](https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md)
 
-    'Additional Boards Manager URLs' 에 다음 내용을 복사하여 붙여넣고 'Ok'.
+  - 'Additional Boards Manager URLs' 에 다음 내용을 복사하여 붙여넣고 'Ok'.
 
     ```
     https://dl.espressif.com/dl/package_esp32_index.json
@@ -109,19 +109,95 @@ layout: default
 
     [![arduino-board-url](./assets/arduino-board-url.png){:width="300px"}](./assets/arduino-board-url.png)
 
-    보드 매니져 실행
+  - 보드 매니져 실행
 
     [![arduino-board-manager](./assets/arduino-board-manager.png){:width="300px"}](./assets/arduino-board-manager.png)
 
-    보드 매니져 팝업창의 모습
+  - 보드 매니져 팝업창의 모습
 
     [![arduino-board-manager-popup](./assets/arduino-board-manager-popup.png){:width="300px"}](./assets/arduino-board-manager-popup.png)
 
-    검색창에 'esp32'라고 입력
+  - 검색창에 'esp32'라고 입력 후, 'Install' 클릭
 
     [![arduino-board-manager-esp32](./assets/arduino-board-manager-esp32.png){:width="300px"}](./assets/arduino-board-manager-esp32.png)
 
-    'Install' 클릭
+- Arduino IDE에 와이파이-진 코드와 필요한 라이브러리들 추가하기
+
+  - [와이파이-진](https://github.com/applecargo/WifiZineThrowie/) 다운로드 및 설치
+
+    'Clone or download' -> 'Download ZIP' 클릭
+
+    [![arduino-00010](./assets/arduino-00010.png){:width="300px"}](./assets/arduino-00010.png)
+
+    압축 해제 후, 폴더 이름 변경
+
+    [![arduino-00011](./assets/arduino-00011.png){:width="300px"}](./assets/arduino-00011.png)
+    [![arduino-00012](./assets/arduino-00012.png){:width="300px"}](./assets/arduino-00012.png)
+
+    ~/Documents/Arduino에 해당 폴더 복사
+
+    [![arduino-00013](./assets/arduino-00013.png){:width="300px"}](./assets/arduino-00013.png)
+
+  - [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)와 [AsyncTCP](https://github.com/me-no-dev/AsyncTCP) 라이브러리 다운로드 및 설치
+
+    'Clone or download' -> 'Download ZIP' 클릭
+
+    [![arduino-00001](./assets/arduino-00001.png){:width="300px"}](./assets/arduino-00001.png)
+
+    압축 해제 후, 폴더 이름 변경
+
+    [![arduino-00003](./assets/arduino-00003.png){:width="300px"}](./assets/arduino-00003.png)
+    [![arduino-00004](./assets/arduino-00004.png){:width="300px"}](./assets/arduino-00004.png)
+
+    'Clone or download' -> 'Download ZIP' 클릭
+
+    [![arduino-00006](./assets/arduino-00006.png){:width="300px"}](./assets/arduino-00006.png)
+
+    압축 해제 후, 폴더 이름 변경
+
+    [![arduino-00007](./assets/arduino-00007.png){:width="300px"}](./assets/arduino-00007.png)
+    [![arduino-00008](./assets/arduino-00008.png){:width="300px"}](./assets/arduino-00008.png)
+
+    ~/Documents/Arduino/libraries에 해당 폴더 (2개) 복사
+
+    [![arduino-00009](./assets/arduino-00009.png){:width="300px"}](./assets/arduino-00009.png)
+
+  - 컴파일 확인
+
+    - Arduino IDE를 재시작
+
+    - 'WifiZineThrowie' 스케치를 연다
+
+      [![arduino-wifizine](./assets/arduino-wifizine.png){:width="300px"}](./assets/arduino-wifizine.png)
+
+    - ESP32 Dev Module 보드를 선택한다
+
+      [![arduino-wifizine-select-board](./assets/arduino-wifizine-select-board.png){:width="300px"}](./assets/arduino-wifizine-select-board.png)
+
+    - ESP32 Dev Module 보드 설정을 조정한다
+
+      [![arduino-wifizine-config-board](./assets/arduino-wifizine-config-board.png){:width="300px"}](./assets/arduino-wifizine-config-board.png)
+
+      - Upload Speed : 921600
+      - CPU Frequency : 240MHz
+      - Flash Frequency : 80MHz
+      - Flash Mode : DIO
+      - Flash Size : 4MB (32Mb)
+      - Partition Scheme : Default
+      - Core Debug Level : None
+      - PSRAM : Disabled
+
+    - 컴파일 버튼(빨간 화살표)을 클릭한다
+
+      [![arduino-wifizine-popup](./assets/arduino-wifizine-popup.png){:width="300px"}](./assets/arduino-wifizine-popup.png)
+
+    - 컴파일 과정이 정상적으로 끝나면, 성공
+
+      [![arduino-wifizine-compile-done](./assets/arduino-wifizine-compile-done.png){:width="300px"}](./assets/arduino-wifizine-compile-done.png)
+
+    - 컴파일 과정이 비-정상적으로 끝나면, 실패
+
+      [![arduino-wifizine-compile-failed](./assets/arduino-wifizine-compile-failed.png){:width="300px"}](./assets/arduino-wifizine-compile-failed.png)
 
 - ESP32 모듈과 통신하기 위한 USB 장치 드라이버 설치하기 (칩 이름 : SiliconLabs CP2012)
 
@@ -177,24 +253,85 @@ layout: default
 
 - USB 드라이버 작동 여부 확인하기
 
-  - Try compile & upload and see if it works with the simplest example: Blink example
-  - How to listen to the device with Serial comm. Example
+  - 드라이버를 지금 막 설치했다면, 컴퓨터를 재시작한다
 
-- Preparing hotspot-zine code and installing additional components that is needed by the code (libraries)
-  - How to use arduino’s Library Manager to install a new library
-  - What we need to install
-    - ESP32AsyncWebServer
-    - AsyncTCP
-    - …
-  - Where is the code?
-    - USB drive
-    - Or github, using git.
-- Choose your SSID and modify the default one
-- Try compile & upload and see what happens.
+  - 재시작한 후에 GateKeeper가 드라이버 로딩을 방해하지는 않았는지 확인한다.
 
-  - [통신 문제?](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/)
+    - System Preferences -> Security & Privacy -> General
 
-  - [문제 발생?](https://randomnerdtutorials.com/esp32-troubleshooting-guide/)
+      [![gatekeeper-check](./assets/gatekeeper-check.png){:width="300px"}](./assets/gatekeeper-check.png)
+      [![gatekeeper-check-popup](./assets/gatekeeper-check-popup.png){:width="300px"}](./assets/gatekeeper-check-popup.png)
+
+      빨간색으로 표시된 상자안에 에러문구가 있다면, GateKeeper가 드라이버 작동을 방해한 경우이다.
+
+      [![security_and_privacy_kextload_approval](./assets/security_and_privacy_kextload_approval.png){:width="300px"}](./assets/security_and_privacy_kextload_approval.png)
+
+      위와 유사한 상태가 되어있을경우, 'Allow'를 클릭하고 관리자 암호를 넣어 승인해준 후, 컴퓨터를 재시작한다.
+
+  - Arduino IDE를 시작한 후에, ESP32 모듈과 통신 가능한지 확인
+
+    [![arduino-esp32-comm](./assets/arduino-esp32-comm.png){:width="300px"}](./assets/arduino-esp32-comm.png)
+
+    통신이 가능한 경우, 위와 같이 /dev/cu.SLAB_USBtoUART를 선택할 수가 있다.
+
+    [![arduino-esp32-comm-failed](./assets/arduino-esp32-comm-failed.png){:width="300px"}](./assets/arduino-esp32-comm-failed.png)
+
+    통신이 불가능한 경우, 위와 같이 /dev/cu.SLAB_USBtoUART가 존재하지 않는다.
+
+- 와이파이-진 네트워크의 이름, 즉 SSID를 정하고 코드를 수정한다.
+
+  [![arduino-wifizine-ssid-change](./assets/arduino-wifizine-ssid-change.png){:width="300px"}](./assets/arduino-wifizine-ssid-change.png)
+
+  - 글자 수나 띄어쓰기 등에 의해서 안될 수도 있으므로, 처음에는 공백문자가 포함되지 않은 간단한 영문으로 테스트해본다.
+  - 한글을 사용해도 된다.
+
+- 보드에 업로드 한다
+
+  - 업로드 버튼(빨간 화살표)을 클릭하고, 'Connecting...' 이란 문구가 나타났을때, [ESP 보드의 'BOOT'라는 버튼을 1초간 눌렀다가 뗀다](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/).
+
+    [![arduino-wifizine-upload](./assets/arduino-wifizine-upload.png){:width="300px"}](./assets/arduino-wifizine-upload.png)
+
+    업로드 성공한 화면
+
+    [![arduino-wifizine-upload-done](./assets/arduino-wifizine-upload-done.png){:width="300px"}](./assets/arduino-wifizine-upload-done.png)
+
+    업로드 실패한 화면
+
+    [![arduino-wifizine-upload-failed](./assets/arduino-wifizine-upload-failed.png){:width="300px"}](./assets/arduino-wifizine-upload-failed.png)
+
+- [다양한 문제 요인들](https://randomnerdtutorials.com/esp32-troubleshooting-guide/)
+
+### 와이파이-진 보드 업로드 용량 늘리기 (선택적인 과정)
+
+- 제공된 ESP32 모듈의 플래쉬 메모리 용량은 4MB이지만, 전부 다 와이파이-진 컨텐츠를 위해서 사용할 수는 없다. 그 이유는 와이파이-진을 구동하는 코드와 칩 자체의 작동을 위한 코드, 그리고 파일 시스템의 구조 (폴더 구조 및 파일의 구분 등)를 표현하기 위해 사용되는 데이터, 즉 SPIFFS의 구현에 의한 오버헤드와 같은 것들이 4MB 중 일부분을 사용하지 않을 수 없기 때문이다.
+
+- ESP32 모듈의 플래쉬 메모리는 작동하는 데이터(즉, 코드), 저장해 두어야 하는 데이터(즉, 메모리), 구조를 기록하는 데이터(즉, 파일 시스템) 등이 파티션을 통해 4MB를 나누어 사용하도록 되어있다.
+
+- 위의 과정 중에서, ESP32 보드를 설정할때,
+
+  [![arduino-wifizine-config-board](./assets/arduino-wifizine-config-board.png){:width="300px"}](./assets/arduino-wifizine-config-board.png)
+
+  ```
+  Partition Scheme : Default
+  ```
+
+  를 선택했었는데, 기본 파티션 구성의 경우 와이파이-진을 위해서 반드시 필요하지 않은 요소들을 포함하고 있으며, 기본 파티션 구성에서 와이파이-진 컨텐츠에 사용할 수 있는 메모리 용량은 1MB 정도밖에는 되지 않는다.
+
+- 따라서, Partition Scheme을 보다 효율적으로 재구성하면, 와이파이-진 컨텐츠를 조금 더 많이 업로드 할 수 있게 할 수도 있다. 이렇게 하면, 약 1.9MB 정도의 용량을 사용할 수 있게 된다.
+
+- 본 과정을 마치게 되면, 다음과 같이
+
+  [![arduino-wifizine-custom-partition](./assets/arduino-wifizine-custom-partition.png){:width="300px"}](./assets/arduino-wifizine-custom-partition.png)
+
+  ```
+  Partition Scheme : WIFI ZINE
+  ```
+
+  을 선택할 수 있게 된다.
+
+- 작업 과정
+
+  
 
 #### Uploading the zine content
 
