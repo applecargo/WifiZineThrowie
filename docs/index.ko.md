@@ -56,9 +56,9 @@ layout: default
 
 ### 알아두어야 할 와이파이-진 시스템의 한계
 
-  - 저장용량 2MB 이하
-  - 일반적인 웹서버에 비해 다소 느린 속도
-  - 일반적인 웹서버에 비해 다소 불안정한 작동 (때때로, 시스템 재시작이 필요할 수 있음)
+- 저장용량 2MB 이하
+- 일반적인 웹서버에 비해 다소 느린 속도
+- 일반적인 웹서버에 비해 다소 불안정한 작동 (때때로, 시스템 재시작이 필요할 수 있음)
 
 ## 와이파이-진 만들기
 
@@ -72,6 +72,56 @@ layout: default
 - (선택적으로) 센서 또는 작동장치 (스피커 등)
 
 ### 와이파이-진 보드 준비하기
+
+- [Arduino 다운로드](https://www.arduino.cc/en/Main/Software)
+
+- Arduino 설치하기
+
+  - [Windows](https://www.arduino.cc/en/Guide/Windows)
+
+  - [Mac OSX](https://www.arduino.cc/en/Guide/MacOSX)
+
+    [![arduino-confirm](./assets/arduino-confirm.png){:width="300px"}](./assets/arduino-confirm.png)
+
+    'Open' 을 클릭.
+
+  - [Linux](https://www.arduino.cc/en/Guide/Linux)
+
+- Arduino IDE 실행 화면
+
+  [![arduino-screen](./assets/arduino-screen.png){:width="300px"}](./assets/arduino-screen.png)
+
+- Arduino IDE 설정
+
+  - 컴파일 및 업로드 과정 표시 모드를 '상세한 표기'로 변경
+
+    [![arduino-verbose](./assets/arduino-verbose.png){:width="300px"}](./assets/arduino-verbose.png)
+
+    'Show verbose output during:' 항목에서 compilation과 upload에 체크
+
+- [Arduino IDE에 esp32 보드를 추가하기](https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md)
+
+    'Additional Boards Manager URLs' 에 다음 내용을 복사하여 붙여넣고 'Ok'.
+
+    ```
+    https://dl.espressif.com/dl/package_esp32_index.json
+    ```
+
+    [![arduino-board-url](./assets/arduino-board-url.png){:width="300px"}](./assets/arduino-board-url.png)
+
+    보드 매니져 실행
+
+    [![arduino-board-manager](./assets/arduino-board-manager.png){:width="300px"}](./assets/arduino-board-manager.png)
+
+    보드 매니져 팝업창의 모습
+
+    [![arduino-board-manager-popup](./assets/arduino-board-manager-popup.png){:width="300px"}](./assets/arduino-board-manager-popup.png)
+
+    검색창에 'esp32'라고 입력
+
+    [![arduino-board-manager-esp32](./assets/arduino-board-manager-esp32.png){:width="300px"}](./assets/arduino-board-manager-esp32.png)
+
+    'Install' 클릭
 
 - ESP32 모듈과 통신하기 위한 USB 장치 드라이버 설치하기 (칩 이름 : SiliconLabs CP2012)
 
@@ -125,22 +175,22 @@ layout: default
 
       - 정보 없음
 
-  - Testing USB communication
-    - Enabling verbose/detailed output of the procedure that arduino takes for compilation and uploading steps
-    - Try compile & upload and see if it works with the simplest example: Blink example
-    - How to listen to the device with Serial comm. Example
+- USB 드라이버 작동 여부 확인하기
 
-  - Preparing hotspot-zine code and installing additional components that is needed by the code (libraries)
-    - How to use arduino’s Library Manager to install a new library
-    - What we need to install
-      - ESP32AsyncWebServer
-      - AsyncTCP
-      - …
-    - Where is the code?
-      - USB drive
-      - Or github, using git.
-  - Choose your SSID and modify the default one
-  - Try compile & upload and see what happens.
+  - Try compile & upload and see if it works with the simplest example: Blink example
+  - How to listen to the device with Serial comm. Example
+
+- Preparing hotspot-zine code and installing additional components that is needed by the code (libraries)
+  - How to use arduino’s Library Manager to install a new library
+  - What we need to install
+    - ESP32AsyncWebServer
+    - AsyncTCP
+    - …
+  - Where is the code?
+    - USB drive
+    - Or github, using git.
+- Choose your SSID and modify the default one
+- Try compile & upload and see what happens.
 
   - [통신 문제?](https://randomnerdtutorials.com/solved-failed-to-connect-to-esp32-timed-out-waiting-for-packet-header/)
 
