@@ -419,34 +419,40 @@ layout: default
 
 - 예시 2
 
-  - Image-oriented single page: ‘Imaginary, world.’
+  - [Imaginary, world](https://github.com/applecargo/WifiZineThrowie/blob/master/data-image.zip?raw=true)
 
-- 예시 3 : Sound-oriented single page: ‘Sound world!’
+- 예시 3
 
-  -
+  - [Sound-world!](https://github.com/applecargo/WifiZineThrowie/blob/master/data-sound.zip?raw=true)
 
-- 예시 4 : Multiple-pages: ‘Looooong story!’
+- 예시 4
 
-  -
+  - Looooong story! (TBD)
 
-- 예시 5 (advanced) : WebSocket - socket.io + server-side programming @ arduino
+- 예시 5
 
-  - 
+  - (advanced) WebSocket - socket.io + server-side programming @ arduino (TBD)
 
-#### Working with the shape and materialization
+    - 해본적 없지만, 가능해 보임. 예제를 만들어 봅시다.
 
-- Adding sensors : example (buttons)
-- Adding actuators : example (motor)
+## 형태와 재질을 가지고 놀아보기
 
-#### Working with the location
+- 센서를 붙여보기
 
-- Magnets and installing at public space
+  - 스위치?
 
-### Contribution to the project
+- 작동하는 것을 붙여보기
 
-- Sharing your zine content & construction + your concept/context
-- Approvements on the wifi-zine code: send PR @ github
-  - And plz be patient, i have never used PR system.. Need to learn :)
-- Or simply e-mail your idea and stuff : <mailto:pilotedeguerre@gmail.com>
+  - 모터?
 
-### Thank you!
+## 장소와 함께 생각하기
+
+- 자석을 이용해서 거리나 공간의 철골 구조에 부착
+
+## 프로젝트에 기여하기
+
+- ZINE 컨텐츠를 공유해주면, 다른 사람들이 각자 ZINE을 제작할 때, 아이디어와 영감을 얻을 수 있습니다. 이때, ZINE이 제작된 배경 이야기나 맥락, 형태 등 부가정보를 알려주면 더 좋습니다.
+- 와이파이-진 프로그램의 여러가지 부분을 개선할 수 있는 아이디어가 있으시다면, github의 PR 기능으로 수정내역을 보내주세요.
+- 그밖에 여러가지 생각들이나 의견들은 이메일로 주시면 됩니다. <mailto:pilotedeguerre@gmail.com>
+
+## 고맙습니다!
