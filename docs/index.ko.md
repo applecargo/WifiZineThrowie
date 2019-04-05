@@ -411,15 +411,27 @@ layout: default
 
 ## 와이파이-진 컨텐츠 예시
 
-- 예시 1 : Text-oriented single page: ‘Hello, world!’
-- 예시 2 : Image-oriented single page: ‘Imaginary, world.’
+- 예시 1 텍스트 페이지
+
+  - [Hello, Text?](https://github.com/applecargo/WifiZineThrowie/blob/master/data-text.zip?raw=true)
+
+    - [폰트 구하기](https://www.dafont.com/)
+
+- 예시 2
+
+  - Image-oriented single page: ‘Imaginary, world.’
+
 - 예시 3 : Sound-oriented single page: ‘Sound world!’
+
+  -
+
 - 예시 4 : Multiple-pages: ‘Looooong story!’
-- 예시 5 : Paper.js
-- 예시 6 : P5.js
-- 예시 7 : <http://molleindustria.github.io/p5.play/>
-- 예시 8 : Tone.js
-- 예시 9 (advanced) : WebSocket - socket.io + server-side programming @ arduino
+
+  -
+
+- 예시 5 (advanced) : WebSocket - socket.io + server-side programming @ arduino
+
+  - 
 
 #### Working with the shape and materialization
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>~~S-o-u-n-d ZINE~~</title>
+    <script type="text/javascript" src="./Tone.min.js"></script>
+  </head>
+  <body>
+
+    <!-- page contents is quite minimalistic. -->
+    <div id="button1" style="position: absolute; left: 30px; top: 30px; width: 40px; height: 40px; background-color: #d3f;">
+      Play/Stop
+    </div>
+
+    <div id="button2" style="position: absolute; left: 30px; top: 100px; width: 40px; height: 40px; background-color: #3df;">
+      <!-- svg play mark -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+      </svg>
+    </div>
+
+    <!-- audio playing is done by Tone.js -->
+    <script>
+      //cricket
+      var cricket_playing = false;
+      var cricket = new Tone.Player("audio/cricket.mp3", function() {
+        document.getElementById('button1').onclick = function () {
+          if (cricket_playing == false) {
+            cricket_playing = true;
+            cricket.start();
+          } else {
+            cricket_playing = false;
+            cricket.stop();
+          }
+        };
+      }).toMaster();
+
+      //cricket2
+      var more_playing = false;
+      var more = new Tone.Player("audio/cricket08.mp3", function() {
+        document.getElementById('button2').onclick = function () {
+          if (more_playing == false) {
+            more_playing = true;
+            more.start();
+          } else {
+            more_playing = false;
+            more.stop();
+          }
+        };
+      }).toMaster();
+
+    </script>
+
+  </body>
+</html>
