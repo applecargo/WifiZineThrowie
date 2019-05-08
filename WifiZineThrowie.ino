@@ -25,7 +25,7 @@
 /***************************************/
 
 // identifications & credentials
-const char* hostName = "WIFI-ZINE";
+String hostName = "WIFI-ZINE";
 const char* http_username = "admin";
 const char* http_password = "admin";
 
@@ -140,13 +140,30 @@ void setup(){
   delay(10);
   Serial.printf("START\n");
 
+  //file system
+  SPIFFS.begin();
+
+  //update SSID from file-system
+  File root = SPIFFS.open( "/" );
+  File file = root.openNextFile();
+  while (file) {
+    String n = file.name();
+    Serial.println(n);
+    int dot = n.lastIndexOf(".");
+    String ext = n.substring( dot );
+    if ( ext == ".ssid" ) {
+      hostName = n.substring( 1, dot ); // first index is 1 to skip the "/"
+    }
+    file = root.openNextFile();
+  }
+
   //wifi
   WiFi.mode(WIFI_AP);
-  WiFi.setHostname(hostName);
+  WiFi.setHostname(hostName.c_str());
 
   //start ap
   WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-  WiFi.softAP(hostName, NULL, 6); //channel selection : 6 (choose one among 6-13 for world-wide accessibility)
+  WiFi.softAP(hostName.c_str(), NULL, 6); //channel selection : 6 (choose one among 6-13 for world-wide accessibility)
 
   //my ip
   delay(500);
@@ -171,11 +188,8 @@ void setup(){
     else if(error == OTA_RECEIVE_ERROR) events.send("Recieve Failed", "ota");
     else if(error == OTA_END_ERROR) events.send("End Failed", "ota");
   });
-  ArduinoOTA.setHostname(hostName);
+  ArduinoOTA.setHostname(hostName.c_str());
   ArduinoOTA.begin();
-
-  //file system
-  SPIFFS.begin();
 
   //dns service (captive portal)
   dnsServer.start(53, "*", apIP); // reply with provided IP(apIP) to all("*") DNS request
