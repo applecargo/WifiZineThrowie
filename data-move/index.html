@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" src="./gyronorm.complete.min.js"></script>
+    <title>oh my golf</title>
+    <!-- initially written by Stef Kors -->
+    <!-- for better compatibility, applied 'gyronorm.js' by Dooho Yi -->
+    <style>
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+
+      body {
+        background: pink;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .garden {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        border: 10px solid white;
+      }
+
+      .ball {
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 100%;
+      }
+
+      .hole {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border: 1px solid;
+        border-radius: 100%;
+        transition: 0.1s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="garden">
+      <div class="ball"></div>
+      <div class="hole"></div>
+    </div>
+  </body>
+
+  <script>
+    // this game is based on this MDN article
+    // https://developer.mozilla.org/en-US/docs/Web/API/Detecting_device_orientation
+
+
+    // add all element to easy variables
+    var ball = document.querySelector(".ball");
+    var garden = document.querySelector(".garden");
+
+    //  used for calculating width positions later on
+    var maxY = garden.clientHeight - ball.clientHeight;
+
+    // gyronorm.js
+    var gn = new GyroNorm();
+    gn.init().then(function() {
+      gn.start(function(data) {
+        // Process:
+        // data.do.alpha	( deviceorientation event alpha value )
+        // data.do.beta		( deviceorientation event beta value )
+        // data.do.gamma	( deviceorientation event gamma value )
+        // data.do.absolute	( deviceorientation event absolute value )
+
+        // data.dm.x		( devicemotion event acceleration x value )
+        // data.dm.y		( devicemotion event acceleration y value )
+        // data.dm.z		( devicemotion event acceleration z value )
+
+        // data.dm.gx		( devicemotion event accelerationIncludingGravity x value )
+        // data.dm.gy		( devicemotion event accelerationIncludingGravity y value )
+        // data.dm.gz		( devicemotion event accelerationIncludingGravity z value )
+
+        // data.dm.alpha	( devicemotion event rotationRate alpha value )
+        // data.dm.beta		( devicemotion event rotationRate beta value )
+        // data.dm.gamma	( devicemotion event rotationRate gamma value )
+
+        // x and y position of the gyroscope
+        var x = data.do.beta;
+        var y = data.do.gamma;
+
+        // To make computation easier we shift the range of x and y
+        x += 100;
+        y += 90;
+
+        // moving the x and y to viewHeight and viewWidth positions
+        var top = x / 2 + "vh";
+        var left = (maxY * y) / 1000 + "vw";
+
+        // setting the x and y styles
+        ball.style.top = top;
+        ball.style.left = left;
+
+        // get the positions of the hole
+        var hole_top = document.querySelector(".hole").getBoundingClientRect()
+          .top;
+        var hole_left = document.querySelector(".hole").getBoundingClientRect()
+          .left;
+
+        // get the positions of the ball
+        var ball_top = document.querySelector(".ball").getBoundingClientRect()
+          .top;
+        var ball_left = document.querySelector(".ball").getBoundingClientRect()
+          .left;
+
+          // check if the hole and the ball are between -5 and +5 from each other
+        if (
+          hole_top - ball_top <= 5 &&
+          hole_top - ball_top >= -5 &&
+          hole_left - ball_left <= 5 &&
+          hole_left - ball_left >= -5
+        ) {
+          // reset the hole position
+          // this would be a good place to add
+          // - success sounds
+          // - move the player to a second level
+          setHolePosition();
+        }
+      });
+    });
+    // .catch(function(e) {
+    //   // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
+    // });
+
+    function random(min, max) {
+      // this returns a random number between
+      // a minimun and maximum number
+      return Math.floor(Math.random() * max) + min;
+    }
+
+    function setHolePosition() {
+      // make it easy to select the hole element
+      var hole = document.querySelector(".hole");
+      // set the x and y position of the hole
+      hole.style.top = random(10, 80) + "vh";
+      hole.style.left = random(10, 80) + "vw";
+    }
+
+    // start the game by setting a hole position
+    setHolePosition();
+  </script>
+</html>
