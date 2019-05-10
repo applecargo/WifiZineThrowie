@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>~~A-l-a-r-m ZINE~~</title>
+  <script type="text/javascript" src="./Tone.min.js"></script>
+  <script type="text/javascript" src="./gyronorm.complete.min.js"></script>
+  <style>
+    body {
+      display: block;
+      margin: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: #aaa;
+      background: url(/giphy.gif) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    #button-group {
+      position: fixed;
+      top: 40%;
+    }
+
+    .button-common {
+      border-width: 0px;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      opacity:0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- page contents is quite minimalistic. -->
+  <div id="button-group">
+    <button id="button1" class="button-common" style="background-color: #d3f;">A</button>
+    <button id="button2" class="button-common" style="background-color: #3df;">B</button>
+    <button id="button3" class="button-common" style="background-color: #df3;">C</button>
+  </div>
+
+  <!-- audio playing is done by Tone.js -->
+  <script>
+    var gn;
+
+    //sound
+    var sound1 = new Tone.Player("./01.mp3", function() {
+      var sound2 = new Tone.Player("./02.mp3", function() {
+        var sound3 = new Tone.Player("./03.mp3", function() {
+
+          //
+          document.getElementById('button1').onclick = function() {
+            if (sound1.state == 'stopped') sound1.start();
+            else if (sound1.state == 'started') sound1.stop();
+          };
+
+          document.getElementById('button2').onclick = function() {
+            if (sound2.state == 'stopped') sound2.start();
+            else if (sound2.state == 'started') sound2.stop();
+          };
+
+          document.getElementById('button3').onclick = function() {
+            if (sound3.state == 'stopped') sound3.start();
+            else if (sound3.state == 'started') sound3.stop();
+          };
+
+          gn = new GyroNorm();
+          gn.init().then(function() {
+            gn.start(function(data) {
+              // Process:
+              // data.do.alpha	( deviceorientation event alpha value )
+              // data.do.beta		( deviceorientation event beta value )
+              // data.do.gamma	( deviceorientation event gamma value )
+              // data.do.absolute	( deviceorientation event absolute value )
+
+              // data.dm.x		( devicemotion event acceleration x value )
+              // data.dm.y		( devicemotion event acceleration y value )
+              // data.dm.z		( devicemotion event acceleration z value )
+
+              // data.dm.gx		( devicemotion event accelerationIncludingGravity x value )
+              // data.dm.gy		( devicemotion event accelerationIncludingGravity y value )
+              // data.dm.gz		( devicemotion event accelerationIncludingGravity z value )
+
+              // data.dm.alpha	( devicemotion event rotationRate alpha value )
+              // data.dm.beta		( devicemotion event rotationRate beta value )
+              // data.dm.gamma	( devicemotion event rotationRate gamma value )
+
+              //data.do.beta : [-180 ~ 180] (deg)
+              sound1.playbackRate = 1 + data.do.beta / 180 / 2;
+              sound2.playbackRate = 1 + data.do.beta / 180 / 2;
+              sound3.playbackRate = 1 + data.do.beta / 180 / 2;
+            });
+          });
+          // .catch(function(e) {
+          //   // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
+          // });
+        }).toMaster();
+        sound3.loop = true;
+      }).toMaster();
+      sound2.loop = true;
+    }).toMaster();
+    sound1.loop = true;
+  </script>
+
+</body>
+
+</html>
