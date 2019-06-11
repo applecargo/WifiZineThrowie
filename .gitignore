@@ -33,6 +33,9 @@
 
 .DS_Store
 
+# node
+docs/node_modules
+
 # jekyll
 docs/.sass-cache
 docs/_site
