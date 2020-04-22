@@ -210,7 +210,7 @@ layout: default
 
     - [Mac OSX](https://www.silabs.com/documents/public/software/Mac_OSX_VCP_Driver.zip)
 
-      - [GateKeeper와의 전쟁](https://support.apple.com/en-us/HT202491)
+      - [GateKeeper와의 전쟁](https://support.apple.com/ko-kr/HT202491)
 
       - Yosemite (10.10.x)
 
