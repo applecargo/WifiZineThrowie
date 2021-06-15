@@ -40,3 +40,6 @@ docs/node_modules
 docs/.sass-cache
 docs/_site
 docs/Gemfile.lock
+
+# pyenv
+.python-version
